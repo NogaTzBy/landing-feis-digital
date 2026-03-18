@@ -1,8 +1,14 @@
 import { ArrowRight } from "lucide-react";
+import { Spotlight } from "@/components/ui/spotlight";
 
 export default function Hero() {
   return (
     <section className="min-h-screen flex flex-col items-center justify-center text-center px-5 pt-20 pb-16 relative overflow-hidden">
+      <Spotlight
+        size={500}
+        className="bg-[radial-gradient(circle_at_center,rgba(0,0,0,0.06),transparent_70%)]"
+        springOptions={{ bounce: 0, damping: 30, stiffness: 100 }}
+      />
       {/* Subtle grid background */}
       <div
         className="absolute inset-0 opacity-[0.03]"

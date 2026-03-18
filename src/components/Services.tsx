@@ -1,4 +1,5 @@
 import { Globe, Zap, RefreshCw, BarChart3 } from "lucide-react";
+import { Spotlight } from "@/components/ui/spotlight";
 
 const services = [
   {
