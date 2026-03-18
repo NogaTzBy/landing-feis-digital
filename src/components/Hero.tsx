@@ -10,7 +10,6 @@ export default function Hero() {
       <Spotlight
         size={600}
         springOptions={{ bounce: 0, damping: 25, stiffness: 80 }}
-        className="bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.9)_0%,rgba(255,255,255,0.4)_40%,transparent_70%)]"
       />
 
       {/* Grid sutil */}

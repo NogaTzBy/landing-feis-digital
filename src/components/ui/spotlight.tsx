@@ -1,18 +1,15 @@
 'use client';
 import React, { useRef, useState, useCallback, useEffect } from 'react';
 import { motion, useSpring, useTransform, type SpringOptions } from 'framer-motion';
-import { cn } from '@/lib/utils';
 
 type SpotlightProps = {
-  className?: string;
   size?: number;
   springOptions?: SpringOptions;
 };
 
 export function Spotlight({
-  className,
-  size = 300,
-  springOptions = { bounce: 0 },
+  size = 500,
+  springOptions = { bounce: 0, damping: 25, stiffness: 80 },
 }: SpotlightProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
@@ -25,13 +22,11 @@ export function Spotlight({
   const spotlightTop = useTransform(mouseY, (y) => `${y - size / 2}px`);
 
   useEffect(() => {
-    if (containerRef.current) {
-      const parent = containerRef.current.parentElement;
-      if (parent) {
-        parent.style.position = 'relative';
-        parent.style.overflow = 'hidden';
-        setParentElement(parent);
-      }
+    if (!containerRef.current) return;
+    const parent = containerRef.current.parentElement;
+    if (parent) {
+      parent.style.position = 'relative';
+      setParentElement(parent);
     }
   }, []);
 
@@ -62,16 +57,19 @@ export function Spotlight({
   return (
     <motion.div
       ref={containerRef}
-      className={cn(
-        'pointer-events-none absolute rounded-full blur-2xl transition-opacity duration-300',
-        isHovered ? 'opacity-100' : 'opacity-0',
-        className
-      )}
       style={{
+        position: 'absolute',
         width: size,
         height: size,
         left: spotlightLeft,
         top: spotlightTop,
+        borderRadius: '50%',
+        background: 'radial-gradient(circle at center, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.6) 35%, rgba(255,255,255,0.1) 60%, transparent 75%)',
+        filter: 'blur(8px)',
+        pointerEvents: 'none',
+        zIndex: 1,
+        opacity: isHovered ? 1 : 0,
+        transition: 'opacity 0.2s ease',
       }}
     />
   );

@@ -17,8 +17,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="es" className="scroll-smooth">
-      <body className={`${geist.variable} font-[family-name:var(--font-geist)] antialiased bg-white text-[#1d1d1f]`}>
+    <html lang="es" className="scroll-smooth" suppressHydrationWarning>
+      <body className={`${geist.variable} font-[family-name:var(--font-geist)] antialiased bg-white text-[#1d1d1f]`} suppressHydrationWarning>
         {children}
       </body>
     </html>
