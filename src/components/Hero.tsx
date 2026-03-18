@@ -9,13 +9,18 @@ export default function Hero() {
     <section className="min-h-screen w-full bg-black relative overflow-hidden flex items-center">
       <Spotlight className="-top-40 left-0 md:left-60 md:-top-20" fill="white" />
 
-      {/* Spline 3D robot — full background, scaled to show head area */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
+      {/* Spline 3D robot — positioned so head is visible in upper-right area */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        {/*
+          transformOrigin: top center → scale grows downward, head stays near top.
+          translateY(10%) → shifts robot down so head clears the top edge.
+          translateX(8%)  → nudges slightly right so head sits opposite the text.
+        */}
         <div
           className="absolute w-full h-full"
           style={{
-            transform: 'scale(1.6) translateY(-8%) translateX(12%)',
-            transformOrigin: 'center center',
+            transform: 'scale(1.25) translateY(10%) translateX(8%)',
+            transformOrigin: 'top center',
           }}
         >
           <SplineScene
@@ -23,12 +28,12 @@ export default function Hero() {
             className="w-full h-full"
           />
         </div>
-        {/* Gradient: strong left fade so text is readable */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/75 to-black/10" />
+        {/* Left gradient — keeps text readable */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-black/5" />
         {/* Bottom fade */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
-        {/* Top fade */}
-        <div className="absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-black to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
+        {/* Top fade — subtle, just enough to blend navbar */}
+        <div className="absolute top-0 inset-x-0 h-24 bg-gradient-to-b from-black/70 to-transparent" />
       </div>
 
       {/* Content */}
