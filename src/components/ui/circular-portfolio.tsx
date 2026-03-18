@@ -26,7 +26,6 @@ function getItemStyle(
 ): React.CSSProperties {
   const gap = Math.min(Math.max(containerWidth * 0.18, 60), 120);
   const stickUp = gap * 0.65;
-  const offset = (index - activeIndex + total) % total;
   const isActive = index === activeIndex;
   const isLeft = (activeIndex - 1 + total) % total === index;
   const isRight = (activeIndex + 1) % total === index;
@@ -66,9 +65,7 @@ export function CircularPortfolio({ items, autoplay = true }: CircularPortfolioP
 
   useEffect(() => {
     const observe = () => {
-      if (containerRef.current) {
-        setContainerWidth(containerRef.current.offsetWidth);
-      }
+      if (containerRef.current) setContainerWidth(containerRef.current.offsetWidth);
     };
     observe();
     window.addEventListener('resize', observe);
@@ -102,7 +99,7 @@ export function CircularPortfolio({ items, autoplay = true }: CircularPortfolioP
 
   return (
     <div className="w-full grid md:grid-cols-2 gap-12 items-center">
-      {/* Image carousel */}
+      {/* Image carousel — fixed height */}
       <div
         ref={containerRef}
         className="relative h-72 sm:h-80 w-full"
@@ -110,7 +107,7 @@ export function CircularPortfolio({ items, autoplay = true }: CircularPortfolioP
       >
         {items.map((item, i) => (
           <img
-            key={item.name + i}
+            key={item.image + i}
             src={item.image}
             alt={item.name}
             className="absolute inset-0 w-full h-full object-cover rounded-2xl shadow-[0_16px_48px_rgba(0,0,0,0.18)]"
@@ -119,75 +116,86 @@ export function CircularPortfolio({ items, autoplay = true }: CircularPortfolioP
         ))}
       </div>
 
-      {/* Content */}
-      <div className="flex flex-col justify-between min-h-[260px]">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeIndex}
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -18 }}
-            transition={{ duration: 0.3, ease: 'easeInOut' }}
-          >
-            <p className="text-[11px] font-bold uppercase tracking-widest text-[#6e6e73] mb-3">
-              {active.category}
-            </p>
-            <h3 className="text-3xl sm:text-4xl font-bold text-[#1d1d1f] tracking-tight mb-4">
-              {active.name}
-            </h3>
-            <p className="text-[#6e6e73] text-[15px] leading-relaxed mb-6 max-w-sm">
-              {active.description}
-            </p>
-            <div className="flex flex-wrap gap-2 mb-8">
-              {active.tags.map((t) => (
-                <span
-                  key={t}
-                  className="text-[11px] font-medium bg-[#f5f5f7] text-[#6e6e73] px-3 py-1 rounded-full border border-black/[0.06]"
-                >
-                  {t}
-                </span>
-              ))}
-            </div>
-            <a
-              href={active.url}
-              target={active.url.startsWith('http') ? '_blank' : undefined}
-              rel={active.url.startsWith('http') ? 'noopener noreferrer' : undefined}
-              className="inline-flex items-center gap-2 bg-[#1d1d1f] text-white text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-black transition-colors shadow-[0_2px_12px_rgba(0,0,0,0.12)]"
+      {/* Content — fixed height so page doesn't jump */}
+      <div className="flex flex-col" style={{ minHeight: '320px' }}>
+        {/* Text area: fixed height, overflow hidden, content absolutely positioned */}
+        <div className="relative flex-1" style={{ minHeight: '240px' }}>
+          <AnimatePresence mode="popLayout">
+            <motion.div
+              key={activeIndex}
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -16, position: 'absolute', top: 0, left: 0, right: 0 }}
+              transition={{ duration: 0.28, ease: 'easeInOut' }}
+              className="w-full"
             >
-              Ver proyecto
-              <ArrowUpRight className="w-4 h-4" />
-            </a>
-          </motion.div>
-        </AnimatePresence>
+              <p className="text-[11px] font-bold uppercase tracking-widest text-[#6e6e73] mb-3">
+                {active.category}
+              </p>
+              <h3 className="text-3xl sm:text-4xl font-bold text-[#1d1d1f] tracking-tight mb-4">
+                {active.name}
+              </h3>
+              <p className="text-[#6e6e73] text-[15px] leading-relaxed mb-5 max-w-sm">
+                {active.description}
+              </p>
+              <div className="flex flex-wrap gap-2 mb-6">
+                {active.tags.map((t) => (
+                  <span
+                    key={t}
+                    className="text-[11px] font-medium bg-[#f5f5f7] text-[#6e6e73] px-3 py-1 rounded-full border border-black/[0.06]"
+                  >
+                    {t}
+                  </span>
+                ))}
+              </div>
+              <a
+                href={active.url}
+                target={active.url.startsWith('http') ? '_blank' : undefined}
+                rel={active.url.startsWith('http') ? 'noopener noreferrer' : undefined}
+                className="inline-flex items-center gap-2 bg-[#1d1d1f] text-white text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-black transition-colors shadow-[0_2px_12px_rgba(0,0,0,0.12)]"
+              >
+                Ver proyecto
+                <ArrowUpRight className="w-3.5 h-3.5" />
+              </a>
+            </motion.div>
+          </AnimatePresence>
+        </div>
 
-        {/* Arrows */}
-        <div className="flex items-center gap-3 mt-8">
+        {/* Navigation — subtle arrows + dots */}
+        <div className="flex items-center gap-2 pt-6 border-t border-black/[0.06] mt-4">
           <button
             onClick={handlePrev}
-            className="w-11 h-11 rounded-full bg-[#1d1d1f] text-white flex items-center justify-center hover:bg-black transition-colors"
+            className="w-9 h-9 rounded-full border border-black/[0.12] text-[#6e6e73] flex items-center justify-center hover:border-black/30 hover:text-[#1d1d1f] transition-all duration-150"
             aria-label="Anterior"
           >
-            <ChevronLeft className="w-5 h-5" />
+            <ChevronLeft className="w-4 h-4" />
           </button>
           <button
             onClick={handleNext}
-            className="w-11 h-11 rounded-full bg-[#1d1d1f] text-white flex items-center justify-center hover:bg-black transition-colors"
+            className="w-9 h-9 rounded-full border border-black/[0.12] text-[#6e6e73] flex items-center justify-center hover:border-black/30 hover:text-[#1d1d1f] transition-all duration-150"
             aria-label="Siguiente"
           >
-            <ChevronRight className="w-5 h-5" />
+            <ChevronRight className="w-4 h-4" />
           </button>
-          <div className="flex gap-1.5 ml-2">
+
+          {/* Progress dots */}
+          <div className="flex gap-1.5 ml-3">
             {items.map((_, i) => (
               <button
                 key={i}
                 onClick={() => { stopAutoplay(); setActiveIndex(i); }}
-                className={`h-1.5 rounded-full transition-all duration-300 ${
-                  i === activeIndex ? 'w-6 bg-[#1d1d1f]' : 'w-1.5 bg-black/20'
+                className={`h-1 rounded-full transition-all duration-300 ${
+                  i === activeIndex ? 'w-6 bg-[#1d1d1f]' : 'w-2 bg-black/15 hover:bg-black/30'
                 }`}
                 aria-label={`Ir a ${i + 1}`}
               />
             ))}
           </div>
+
+          {/* Counter */}
+          <span className="ml-auto text-[12px] text-[#6e6e73] font-medium tabular-nums">
+            {String(activeIndex + 1).padStart(2, '0')} / {String(items.length).padStart(2, '0')}
+          </span>
         </div>
       </div>
     </div>
