@@ -27,7 +27,7 @@ const works: PortfolioItem[] = [
     description: "Landing page para tienda gourmet en Barcelona. Catálogo de productos, sección de novedades, reseñas de clientes y CTA directo a WhatsApp.",
     tags: ["Next.js", "Tailwind", "Framer Motion"],
     url: "https://landing-pink-pepper.vercel.app/",
-    image: "https://landing-pink-pepper.vercel.app/img5.jpg",
+    image: "https://landing-pink-pepper.vercel.app/img4.jpg",
   },
   {
     name: "Próximamente",
