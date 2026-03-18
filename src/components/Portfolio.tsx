@@ -14,12 +14,12 @@ const works: PortfolioItem[] = [
     image: "https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=600&h=400&fit=crop&crop=center",
   },
   {
-    name: "Próximamente",
-    category: "Tu negocio acá",
-    description: "Cada semana sumamos nuevos proyectos. ¿Querés que el tuyo sea el próximo? Contactanos y empezamos esta semana.",
-    tags: ["Diseño", "Desarrollo", "SEO"],
-    url: "#contacto",
-    image: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=600&h=400&fit=crop&crop=center",
+    name: "WoolXL",
+    category: "Moda · Landing Page",
+    description: "Landing page premium para tienda de lana y tejidos artesanales. Catálogo de colecciones, novedades, sección de bolsos y CTA a WhatsApp.",
+    tags: ["Next.js", "Tailwind", "Framer Motion"],
+    url: "https://landing-woolxl.vercel.app/",
+    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop&crop=center",
   },
   {
     name: "Próximamente",
