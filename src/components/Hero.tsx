@@ -1,18 +1,75 @@
 'use client'
 
+import { useEffect } from "react";
 import { ArrowRight } from "lucide-react";
 import { Spotlight } from "@/components/ui/spotlight";
 import { SplineScene } from "@/components/ui/splite";
 
+/** On mobile (no real mouse), simulate head look-around by dispatching
+ *  synthetic mousemove events that smoothly lerp between UI landmarks. */
+function useMobileLookAround() {
+  useEffect(() => {
+    const isMobile = window.matchMedia('(pointer: coarse)').matches;
+    if (!isMobile) return;
+
+    // Dynamic landmark points (re-evaluated each switch so they use current dimensions)
+    const landmarks = [
+      () => ({ x: 80,                          y: 52 }),                         // logo
+      () => ({ x: window.innerWidth - 52,      y: 52 }),                         // menu icon
+      () => ({ x: window.innerWidth * 0.5,     y: window.innerHeight * 0.62 }),  // "Empezar" button
+      () => ({ x: window.innerWidth * 0.25,    y: window.innerHeight * 0.38 }),  // headline
+      () => ({ x: window.innerWidth * 0.5,     y: window.innerHeight * 0.88 }),  // stats row
+      () => ({ x: window.innerWidth * 0.75,    y: window.innerHeight * 0.70 }),  // "Ver trabajos" button
+    ];
+
+    let idx = 0;
+    let cur = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+    let target = landmarks[0]();
+    let raf: number;
+
+    // Switch target every ~2.8 s
+    const timer = setInterval(() => {
+      idx = (idx + 1) % landmarks.length;
+      target = landmarks[idx]();
+    }, 2800);
+
+    const tick = () => {
+      // Smooth lerp — 4% per frame (~60fps) gives a natural glide
+      cur.x += (target.x - cur.x) * 0.04;
+      cur.y += (target.y - cur.y) * 0.04;
+
+      window.dispatchEvent(
+        new MouseEvent('mousemove', {
+          clientX: Math.round(cur.x),
+          clientY: Math.round(cur.y),
+          bubbles: true,
+          cancelable: true,
+        })
+      );
+
+      raf = requestAnimationFrame(tick);
+    };
+
+    raf = requestAnimationFrame(tick);
+
+    return () => {
+      clearInterval(timer);
+      cancelAnimationFrame(raf);
+    };
+  }, []);
+}
+
 export default function Hero() {
+  useMobileLookAround();
+
   return (
     <section className="min-h-screen w-full bg-black relative overflow-hidden flex items-center">
       <Spotlight className="-top-40 left-0 md:left-60 md:-top-20" fill="white" />
 
-      {/* Full-width flex row — no max-w constraint so Spline reaches the screen edge */}
+      {/* Full-width flex row — no max-w so Spline reaches the screen edge */}
       <div className="w-full flex flex-row min-h-screen">
 
-        {/* LEFT — text, takes 52% of the viewport */}
+        {/* LEFT — text, 52% on desktop, full width on mobile */}
         <div className="w-full md:w-[52%] flex flex-col justify-center
                         px-5 sm:px-8 lg:pl-16 pt-24 pb-16 relative z-10 shrink-0">
           <div className="inline-flex items-center gap-2 bg-white/10 border border-white/15
@@ -60,10 +117,10 @@ export default function Hero() {
 
           <div className="mt-12 pt-10 border-t border-white/10 grid grid-cols-2 gap-6">
             {[
-              { value: "3+", label: "Años de experiencia" },
-              { value: "40+", label: "Clientes satisfechos" },
-              { value: "60+", label: "Landings entregadas" },
-              { value: "100%", label: "Clientes felices" },
+              { value: "3+",    label: "Años de experiencia" },
+              { value: "40+",   label: "Clientes satisfechos" },
+              { value: "60+",   label: "Landings entregadas" },
+              { value: "100%",  label: "Clientes felices" },
             ].map((s) => (
               <div key={s.label}>
                 <p className="text-2xl font-bold text-white tracking-tight">{s.value}</p>
@@ -73,15 +130,13 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* RIGHT — Spline in its own panel, 48% wide, reaches the right edge of the screen.
-            NO pointer-events-none here so the robot can receive mouse events and track the cursor. */}
+        {/* RIGHT — Spline in its own panel, desktop only.
+            No pointer-events-none so the canvas receives real mouse events. */}
         <div className="hidden md:block flex-1 relative">
           <SplineScene
             scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
             className="w-full h-full"
           />
-
-          {/* Blend left edge only — pointer-events-none so Spline still gets mouse events */}
           <div className="pointer-events-none absolute inset-y-0 left-0 w-36
                           bg-gradient-to-r from-black to-transparent" />
           <div className="pointer-events-none absolute top-0 inset-x-0 h-24
@@ -90,8 +145,9 @@ export default function Hero() {
                           bg-gradient-to-t from-black to-transparent" />
         </div>
 
-        {/* Mobile: robot behind text at low opacity */}
-        <div className="md:hidden absolute inset-0 opacity-20 pointer-events-none">
+        {/* MOBILE — robot as background. pointer-events-none but Spline still
+            receives the synthetic mousemove events dispatched on window above. */}
+        <div className="md:hidden absolute inset-0 opacity-30 pointer-events-none">
           <SplineScene
             scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
             className="w-full h-full"
