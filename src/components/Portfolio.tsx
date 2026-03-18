@@ -22,6 +22,14 @@ const works: PortfolioItem[] = [
     image: "https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=600&h=400&fit=crop&crop=center",
   },
   {
+    name: "Pink Pepper BCN",
+    category: "Gastronomía · Landing Page",
+    description: "Landing page para tienda gourmet en Barcelona. Catálogo de productos, sección de novedades, reseñas de clientes y CTA directo a WhatsApp.",
+    tags: ["Next.js", "Tailwind", "Framer Motion"],
+    url: "https://landing-pink-pepper.vercel.app/",
+    image: "https://landing-pink-pepper.vercel.app/img5.jpg",
+  },
+  {
     name: "Próximamente",
     category: "Tu negocio acá",
     description: "Espacios disponibles para nuevos clientes. Trabajamos con negocios locales, profesionales y PyMEs.",
