@@ -9,18 +9,19 @@ export default function Hero() {
     <section className="min-h-screen w-full bg-black relative overflow-hidden flex items-center">
       <Spotlight className="-top-40 left-0 md:left-60 md:-top-20" fill="white" />
 
-      {/* Spline 3D robot — positioned so head is visible in upper-right area */}
-      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+      {/* Spline 3D robot — pointer-events enabled so the robot tracks the mouse */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
         {/*
-          transformOrigin: top center → scale grows downward, head stays near top.
-          translateY(10%) → shifts robot down so head clears the top edge.
-          translateX(8%)  → nudges slightly right so head sits opposite the text.
+          transformOrigin: top right → scale grows toward bottom-left, head stays in top-right.
+          scale(1.2)       → slight zoom so robot fills more of the frame.
+          translateY(-5%)  → pulls scene UP so the head appears in the upper-right zone.
+          translateX(5%)   → keeps it offset to the right.
         */}
         <div
           className="absolute w-full h-full"
           style={{
-            transform: 'scale(1.25) translateY(10%) translateX(8%)',
-            transformOrigin: 'top center',
+            transform: 'scale(1.2) translateY(-5%) translateX(5%)',
+            transformOrigin: 'top right',
           }}
         >
           <SplineScene
@@ -28,12 +29,11 @@ export default function Hero() {
             className="w-full h-full"
           />
         </div>
-        {/* Left gradient — keeps text readable */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-black/5" />
-        {/* Bottom fade */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
-        {/* Top fade — subtle, just enough to blend navbar */}
-        <div className="absolute top-0 inset-x-0 h-24 bg-gradient-to-b from-black/70 to-transparent" />
+
+        {/* Gradients — pointer-events-none so they don't block Spline mouse tracking */}
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black via-black/25 to-transparent" />
+        <div className="pointer-events-none absolute top-0 inset-x-0 h-24 bg-gradient-to-b from-black/60 to-transparent" />
       </div>
 
       {/* Content */}
