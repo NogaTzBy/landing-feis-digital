@@ -1,17 +1,21 @@
+"use client";
+
 import { ArrowRight } from "lucide-react";
 import { Spotlight } from "@/components/ui/spotlight";
 
 export default function Hero() {
   return (
-    <section className="min-h-screen flex flex-col items-center justify-center text-center px-5 pt-20 pb-16 relative overflow-hidden">
+    <section className="min-h-screen flex flex-col items-center justify-center text-center px-5 pt-20 pb-16 relative bg-[#f5f5f7]">
+      {/* Spotlight — sigue el mouse con glow blanco sobre gris */}
       <Spotlight
-        size={500}
-        className="bg-[radial-gradient(circle_at_center,rgba(0,0,0,0.06),transparent_70%)]"
-        springOptions={{ bounce: 0, damping: 30, stiffness: 100 }}
+        size={600}
+        springOptions={{ bounce: 0, damping: 25, stiffness: 80 }}
+        className="bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.9)_0%,rgba(255,255,255,0.4)_40%,transparent_70%)]"
       />
-      {/* Subtle grid background */}
+
+      {/* Grid sutil */}
       <div
-        className="absolute inset-0 opacity-[0.03]"
+        className="absolute inset-0 opacity-[0.04] pointer-events-none"
         style={{
           backgroundImage:
             "linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px)",
@@ -19,12 +23,9 @@ export default function Hero() {
         }}
       />
 
-      {/* Soft glow */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] rounded-full bg-black/[0.03] blur-3xl pointer-events-none" />
-
-      <div className="relative max-w-4xl mx-auto">
+      <div className="relative z-10 max-w-4xl mx-auto">
         {/* Badge */}
-        <div className="inline-flex items-center gap-2 bg-[#f5f5f7] border border-black/[0.08] text-[#1d1d1f] text-xs font-medium px-4 py-2 rounded-full mb-8">
+        <div className="inline-flex items-center gap-2 bg-white border border-black/[0.08] text-[#1d1d1f] text-xs font-medium px-4 py-2 rounded-full mb-8 shadow-[0_1px_12px_rgba(0,0,0,0.06)]">
           <span className="w-1.5 h-1.5 rounded-full bg-black inline-block" />
           3 años diseñando webs que generan resultados
         </div>
@@ -54,14 +55,14 @@ export default function Hero() {
           </a>
           <a
             href="#trabajos"
-            className="flex items-center gap-2 border border-black/15 text-[#1d1d1f] font-semibold text-[15px] px-7 py-3.5 rounded-full hover:bg-[#f5f5f7] active:scale-95 transition-all duration-150 w-full sm:w-auto justify-center"
+            className="flex items-center gap-2 bg-white border border-black/10 text-[#1d1d1f] font-semibold text-[15px] px-7 py-3.5 rounded-full hover:bg-[#fafafa] active:scale-95 transition-all duration-150 w-full sm:w-auto justify-center shadow-[0_1px_8px_rgba(0,0,0,0.06)]"
           >
             Ver trabajos
           </a>
         </div>
 
         {/* Stats */}
-        <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-px bg-black/[0.07] rounded-2xl overflow-hidden border border-black/[0.07] shadow-[0_2px_40px_rgba(0,0,0,0.05)]">
+        <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-px bg-black/[0.07] rounded-2xl overflow-hidden border border-black/[0.07] shadow-[0_2px_40px_rgba(0,0,0,0.06)]">
           {[
             { value: "3+", label: "Años de experiencia" },
             { value: "40+", label: "Clientes satisfechos" },
