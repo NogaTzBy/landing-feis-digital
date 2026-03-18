@@ -57,3 +57,13 @@
 .animate-spotlight {
   animation: spotlight 2s ease 0.75s 1 forwards;
 }
+
+@keyframes marquee-ltr {
+  from { transform: translateX(0); }
+  to { transform: translateX(calc(-50% - 0.5rem)); }
+}
+
+@keyframes marquee-rtl {
+  from { transform: translateX(calc(-50% - 0.5rem)); }
+  to { transform: translateX(0); }
+}

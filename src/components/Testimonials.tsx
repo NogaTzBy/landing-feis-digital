@@ -1,63 +1,74 @@
 'use client'
 
 import { motion } from 'framer-motion';
+import { TestimonialCard, TestimonialAuthor } from '@/components/ui/testimonial-card';
 
-const testimonials = [
+const testimonials: Array<{ author: TestimonialAuthor; text: string }> = [
   {
-    text: "Antes mi negocio era invisible en internet. Con Feis Digital no solo tenemos una web hermosa, sino que empezamos a recibir consultas nuevas cada semana. Una inversión que se nota.",
-    name: "Valentina R.",
-    role: "Dueña de tienda de ropa",
-    initial: "V",
+    author: {
+      name: "Valentina R.",
+      handle: "Dueña de tienda de ropa",
+      avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&h=80&fit=crop&crop=face",
+      initial: "V",
+    },
+    text: "Antes mi negocio era invisible en internet. Con Feis Digital empezamos a recibir consultas nuevas cada semana. Una inversión que se nota.",
   },
   {
-    text: "Claridad total desde el primer día. Me explicaron cada decisión de diseño y el resultado superó lo que esperaba. La web carga rápido, se ve increíble y genera confianza al instante.",
-    name: "Marcos T.",
-    role: "Psicólogo clínico",
-    initial: "M",
+    author: {
+      name: "Marcos T.",
+      handle: "Psicólogo clínico",
+      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face",
+      initial: "M",
+    },
+    text: "Claridad total desde el primer día. El resultado superó lo que esperaba. La web carga rápido, se ve increíble y genera confianza al instante.",
   },
   {
-    text: "Tenía miedo de invertir en algo que no funcionara. Pero desde que lanzamos la landing, las reservas de mi restaurante aumentaron un 40%. Trabajan en serio y con criterio.",
-    name: "Luciana P.",
-    role: "Dueña de restaurante",
-    initial: "L",
+    author: {
+      name: "Luciana P.",
+      handle: "Dueña de restaurante",
+      avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&h=80&fit=crop&crop=face",
+      initial: "L",
+    },
+    text: "Desde que lanzamos la landing, las reservas de mi restaurante aumentaron un 40%. Trabajan en serio y con criterio.",
   },
   {
-    text: "Lo mejor fue sentir que entendieron mi negocio desde el principio. No es una plantilla genérica, es una web que me representa. Y eso se nota en los resultados.",
-    name: "Diego M.",
-    role: "Consultor financiero",
-    initial: "D",
+    author: {
+      name: "Diego M.",
+      handle: "Consultor financiero",
+      avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&h=80&fit=crop&crop=face",
+      initial: "D",
+    },
+    text: "No es una plantilla genérica, es una web que me representa. Y eso se nota en los resultados desde el primer mes.",
   },
   {
-    text: "Rápidos, profesionales y con muy buen gusto. Entregaron en el tiempo prometido y con más calidad de la esperada. Volvería a contratar sin dudarlo.",
-    name: "Carolina F.",
-    role: "Arquitecta independiente",
-    initial: "C",
+    author: {
+      name: "Carolina F.",
+      handle: "Arquitecta independiente",
+      avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&h=80&fit=crop&crop=face",
+      initial: "C",
+    },
+    text: "Rápidos, profesionales y con muy buen gusto. Entregaron en tiempo y con más calidad de la esperada. Volvería a contratar sin dudarlo.",
   },
   {
-    text: "Pensé que hacer una web era complicado. Con ellos fue todo lo contrario: simple, ordenado y el resultado fue espectacular. Mis clientes siempre me comentan lo linda que está.",
-    name: "Andrés L.",
-    role: "Instructor de yoga",
-    initial: "A",
+    author: {
+      name: "Andrés L.",
+      handle: "Instructor de yoga",
+      avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&h=80&fit=crop&crop=face",
+      initial: "A",
+    },
+    text: "Con ellos fue todo lo contrario a lo que esperaba: simple, ordenado y el resultado fue espectacular. Mis clientes siempre me comentan lo linda que está.",
   },
 ];
 
-const Stars = () => (
-  <div className="flex gap-0.5 mb-5">
-    {[...Array(5)].map((_, i) => (
-      <svg key={i} className="w-4 h-4 fill-[#1d1d1f]" viewBox="0 0 20 20">
-        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-      </svg>
-    ))}
-  </div>
-);
+// Duplicate for infinite loop
+const doubled = [...testimonials, ...testimonials];
 
 export default function Testimonials() {
   return (
     <section id="testimonios" className="py-28 lg:py-36 bg-white overflow-hidden">
-      <div className="max-w-6xl mx-auto px-5 sm:px-8">
-        {/* Header */}
+      <div className="max-w-6xl mx-auto px-5 sm:px-8 mb-14">
         <motion.div
-          className="text-center max-w-xl mx-auto mb-16"
+          className="text-center max-w-xl mx-auto"
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
@@ -72,34 +83,49 @@ export default function Testimonials() {
             nuestros clientes.
           </h2>
         </motion.div>
+      </div>
 
-        {/* Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {testimonials.map((t, i) => (
-            <motion.div
-              key={t.name}
-              initial={{ opacity: 0, y: 32 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-60px' }}
-              transition={{ duration: 0.5, delay: i * 0.08, ease: [0.25, 0.1, 0.25, 1] }}
-              className="bg-[#f5f5f7] rounded-3xl p-7 border border-black/[0.05] hover:bg-white hover:shadow-[0_8px_60px_rgba(0,0,0,0.07)] hover:-translate-y-0.5 transition-all duration-300"
-            >
-              <Stars />
-              <p className="text-[15px] text-[#1d1d1f] leading-relaxed mb-6">
-                &ldquo;{t.text}&rdquo;
-              </p>
-              <div className="flex items-center gap-3 pt-4 border-t border-black/[0.06]">
-                <div className="w-9 h-9 rounded-full bg-[#1d1d1f] flex items-center justify-center text-white text-sm font-bold shrink-0">
-                  {t.initial}
-                </div>
-                <div>
-                  <p className="text-sm font-semibold text-[#1d1d1f]">{t.name}</p>
-                  <p className="text-xs text-[#6e6e73]">{t.role}</p>
-                </div>
-              </div>
-            </motion.div>
-          ))}
+      {/* Marquee */}
+      <div className="relative w-full">
+        {/* Row 1 — left to right */}
+        <div
+          className="group flex overflow-hidden mb-4"
+          style={{ gap: '1rem' }}
+        >
+          <div
+            className="flex shrink-0 group-hover:[animation-play-state:paused]"
+            style={{
+              gap: '1rem',
+              animation: 'marquee-ltr 35s linear infinite',
+            }}
+          >
+            {doubled.map((t, i) => (
+              <TestimonialCard key={`row1-${i}`} {...t} />
+            ))}
+          </div>
         </div>
+
+        {/* Row 2 — right to left */}
+        <div
+          className="group flex overflow-hidden"
+          style={{ gap: '1rem' }}
+        >
+          <div
+            className="flex shrink-0 group-hover:[animation-play-state:paused]"
+            style={{
+              gap: '1rem',
+              animation: 'marquee-rtl 40s linear infinite',
+            }}
+          >
+            {[...doubled].reverse().map((t, i) => (
+              <TestimonialCard key={`row2-${i}`} {...t} />
+            ))}
+          </div>
+        </div>
+
+        {/* Edge fades */}
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-white to-transparent" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-white to-transparent" />
       </div>
     </section>
   );

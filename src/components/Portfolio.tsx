@@ -1,35 +1,33 @@
 'use client'
 
 import { motion } from 'framer-motion';
-import { ArrowUpRight, ExternalLink } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
+import { CircularPortfolio, PortfolioItem } from "@/components/ui/circular-portfolio";
 
-const works = [
+const works: PortfolioItem[] = [
   {
     name: "Nacar Indumentaria",
     category: "Moda · Landing Page",
-    description: "Landing page completa para tienda de ropa sin límite de talles en Villa Carlos Paz.",
+    description: "Landing page completa para tienda de ropa sin límite de talles en Villa Carlos Paz. Catálogo, lookbook, WhatsApp CTA y mapa de la tienda.",
     tags: ["Next.js", "Tailwind", "shadcn/ui"],
     url: "https://github.com/NogaTzBy/landing-nacar",
-    accent: "#1d1d1f",
-    initial: "N",
+    image: "https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=600&h=400&fit=crop&crop=center",
   },
   {
     name: "Próximamente",
     category: "Tu negocio acá",
-    description: "Cada semana sumamos nuevos proyectos. ¿Querés que el tuyo sea el próximo?",
+    description: "Cada semana sumamos nuevos proyectos. ¿Querés que el tuyo sea el próximo? Contactanos y empezamos esta semana.",
     tags: ["Diseño", "Desarrollo", "SEO"],
     url: "#contacto",
-    accent: "#6e6e73",
-    initial: "?",
+    image: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=600&h=400&fit=crop&crop=center",
   },
   {
     name: "Próximamente",
     category: "Tu negocio acá",
-    description: "Espacios disponibles para nuevos clientes. Contactanos y empezamos esta semana.",
+    description: "Espacios disponibles para nuevos clientes. Trabajamos con negocios locales, profesionales y PyMEs.",
     tags: ["Diseño", "Desarrollo", "SEO"],
     url: "#contacto",
-    accent: "#6e6e73",
-    initial: "?",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=400&fit=crop&crop=center",
   },
 ];
 
@@ -39,7 +37,7 @@ export default function Portfolio() {
       <div className="max-w-6xl mx-auto px-5 sm:px-8">
         {/* Header */}
         <motion.div
-          className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-14"
+          className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-16"
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
@@ -64,65 +62,14 @@ export default function Portfolio() {
           </a>
         </motion.div>
 
-        {/* Cards */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {works.map((w, i) => (
-            <motion.a
-              key={i}
-              href={w.url}
-              target={w.url.startsWith("http") ? "_blank" : undefined}
-              rel={w.url.startsWith("http") ? "noopener noreferrer" : undefined}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-60px' }}
-              transition={{ duration: 0.5, delay: i * 0.1, ease: [0.25, 0.1, 0.25, 1] }}
-              className="group bg-white rounded-3xl border border-black/[0.06] shadow-[0_2px_40px_rgba(0,0,0,0.04)] overflow-hidden hover:shadow-[0_12px_60px_rgba(0,0,0,0.1)] hover:-translate-y-1 transition-all duration-300"
-            >
-              {/* Preview area */}
-              <div className="h-48 bg-[#1d1d1f] relative flex items-center justify-center overflow-hidden">
-                {/* Grid pattern */}
-                <div
-                  className="absolute inset-0 opacity-[0.07]"
-                  style={{
-                    backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)',
-                    backgroundSize: '32px 32px',
-                  }}
-                />
-                <div className="w-16 h-16 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center backdrop-blur-sm shadow-[0_0_40px_rgba(255,255,255,0.1)]">
-                  <span className="text-2xl font-bold text-white tracking-tight">
-                    {w.initial}
-                  </span>
-                </div>
-                <div className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 border border-white/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                  <ExternalLink className="w-3.5 h-3.5 text-white" />
-                </div>
-              </div>
-
-              {/* Content */}
-              <div className="p-6">
-                <p className="text-[11px] font-semibold uppercase tracking-widest text-[#6e6e73] mb-2">
-                  {w.category}
-                </p>
-                <h3 className="font-bold text-lg text-[#1d1d1f] mb-2 tracking-tight">
-                  {w.name}
-                </h3>
-                <p className="text-[#6e6e73] text-[13px] leading-relaxed mb-4">
-                  {w.description}
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {w.tags.map((t) => (
-                    <span
-                      key={t}
-                      className="text-[11px] font-medium bg-[#f5f5f7] text-[#6e6e73] px-3 py-1 rounded-full border border-black/[0.06]"
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </motion.a>
-          ))}
-        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 32 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.7 }}
+        >
+          <CircularPortfolio items={works} autoplay />
+        </motion.div>
       </div>
     </section>
   );
