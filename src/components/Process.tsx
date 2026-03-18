@@ -1,3 +1,7 @@
+'use client'
+
+import { motion } from 'framer-motion';
+
 const steps = [
   {
     n: "01",
@@ -30,7 +34,13 @@ export default function Process() {
     <section id="proceso" className="py-28 lg:py-36 bg-white">
       <div className="max-w-6xl mx-auto px-5 sm:px-8">
         {/* Header */}
-        <div className="max-w-2xl mb-16">
+        <motion.div
+          className="max-w-2xl mb-20"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.6 }}
+        >
           <p className="text-xs font-semibold uppercase tracking-widest text-[#6e6e73] mb-4">
             Proceso
           </p>
@@ -39,28 +49,39 @@ export default function Process() {
             <br />
             y sin sorpresas.
           </h2>
-        </div>
+        </motion.div>
 
         {/* Steps */}
-        <div className="grid md:grid-cols-2 gap-4">
-          {steps.map((step) => (
-            <div
-              key={step.n}
-              className="group flex gap-6 p-8 rounded-3xl border border-black/[0.07] hover:bg-[#f5f5f7] hover:border-black/[0.10] transition-all duration-200"
-            >
-              <span className="shrink-0 text-[11px] font-bold text-[#6e6e73] tracking-widest mt-1">
-                {step.n}
-              </span>
-              <div>
-                <h3 className="text-lg font-bold text-[#1d1d1f] mb-2 tracking-tight">
-                  {step.title}
-                </h3>
-                <p className="text-[#6e6e73] text-[15px] leading-relaxed">
-                  {step.description}
-                </p>
-              </div>
-            </div>
-          ))}
+        <div className="relative">
+          {/* Vertical connector line (desktop) */}
+          <div className="hidden md:block absolute left-[calc(50%-0.5px)] top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-black/10 to-transparent" />
+
+          <div className="grid md:grid-cols-2 gap-4">
+            {steps.map((step, i) => (
+              <motion.div
+                key={step.n}
+                initial={{ opacity: 0, x: i % 2 === 0 ? -30 : 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: '-60px' }}
+                transition={{ duration: 0.55, delay: i * 0.1, ease: [0.25, 0.1, 0.25, 1] }}
+                className="group relative flex gap-6 p-8 rounded-3xl bg-[#f5f5f7] border border-black/[0.05] hover:bg-white hover:border-black/[0.10] hover:shadow-[0_4px_40px_rgba(0,0,0,0.06)] transition-all duration-300"
+              >
+                <div className="shrink-0 w-10 h-10 rounded-2xl bg-white border border-black/[0.08] flex items-center justify-center shadow-[0_2px_12px_rgba(0,0,0,0.04)]">
+                  <span className="text-[11px] font-bold text-[#1d1d1f] tracking-widest">
+                    {step.n}
+                  </span>
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-[#1d1d1f] mb-2 tracking-tight">
+                    {step.title}
+                  </h3>
+                  <p className="text-[#6e6e73] text-[15px] leading-relaxed">
+                    {step.description}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

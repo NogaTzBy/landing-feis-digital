@@ -1,5 +1,7 @@
+'use client'
+
+import { motion } from 'framer-motion';
 import { Globe, Zap, RefreshCw, BarChart3 } from "lucide-react";
-import { Spotlight } from "@/components/ui/spotlight";
 
 const services = [
   {
@@ -37,7 +39,13 @@ export default function Services() {
     <section id="servicios" className="py-28 lg:py-36 bg-[#f5f5f7]">
       <div className="max-w-6xl mx-auto px-5 sm:px-8">
         {/* Header */}
-        <div className="max-w-2xl mb-16">
+        <motion.div
+          className="max-w-2xl mb-16"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.6 }}
+        >
           <p className="text-xs font-semibold uppercase tracking-widest text-[#6e6e73] mb-4">
             Servicios
           </p>
@@ -50,16 +58,20 @@ export default function Services() {
             No vendemos plantillas. Cada proyecto es pensado, diseñado y construido
             específicamente para tu negocio y tus objetivos.
           </p>
-        </div>
+        </motion.div>
 
-        {/* Grid */}
+        {/* Grid — each card animates in individually */}
         <div className="grid sm:grid-cols-2 gap-4">
-          {services.map((s) => {
+          {services.map((s, i) => {
             const Icon = s.icon;
             return (
-              <div
+              <motion.div
                 key={s.title}
-                className="relative bg-white rounded-3xl p-8 border border-black/[0.06] shadow-[0_2px_40px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_60px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 transition-all duration-300"
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-60px' }}
+                transition={{ duration: 0.55, delay: i * 0.12, ease: [0.25, 0.1, 0.25, 1] }}
+                className="relative bg-white rounded-3xl p-8 border border-black/[0.06] shadow-[0_2px_40px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_60px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300"
               >
                 {s.tag && (
                   <span className="absolute top-6 right-6 text-[10px] font-bold uppercase tracking-widest bg-black text-white px-3 py-1 rounded-full">
@@ -75,7 +87,7 @@ export default function Services() {
                 <p className="text-[#6e6e73] text-[15px] leading-relaxed">
                   {s.description}
                 </p>
-              </div>
+              </motion.div>
             );
           })}
         </div>

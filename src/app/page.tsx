@@ -8,7 +8,6 @@ import Testimonials from "@/components/Testimonials";
 import FAQ from "@/components/FAQ";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
-import { ContainerScroll } from "@/components/ui/container-scroll-animation";
 
 export default function Home() {
   return (
@@ -17,9 +16,7 @@ export default function Home() {
       <main>
         <Hero />
         <ShaderStats />
-        <ContainerScroll>
-          <Services />
-        </ContainerScroll>
+        <Services />
         <Process />
         <Portfolio />
         <Testimonials />

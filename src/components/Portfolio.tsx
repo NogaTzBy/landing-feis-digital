@@ -1,4 +1,7 @@
-import { ArrowUpRight } from "lucide-react";
+'use client'
+
+import { motion } from 'framer-motion';
+import { ArrowUpRight, ExternalLink } from "lucide-react";
 
 const works = [
   {
@@ -7,7 +10,8 @@ const works = [
     description: "Landing page completa para tienda de ropa sin límite de talles en Villa Carlos Paz.",
     tags: ["Next.js", "Tailwind", "shadcn/ui"],
     url: "https://github.com/NogaTzBy/landing-nacar",
-    gradient: "from-stone-100 to-rose-50",
+    accent: "#1d1d1f",
+    initial: "N",
   },
   {
     name: "Próximamente",
@@ -15,7 +19,8 @@ const works = [
     description: "Cada semana sumamos nuevos proyectos. ¿Querés que el tuyo sea el próximo?",
     tags: ["Diseño", "Desarrollo", "SEO"],
     url: "#contacto",
-    gradient: "from-neutral-50 to-zinc-100",
+    accent: "#6e6e73",
+    initial: "?",
   },
   {
     name: "Próximamente",
@@ -23,7 +28,8 @@ const works = [
     description: "Espacios disponibles para nuevos clientes. Contactanos y empezamos esta semana.",
     tags: ["Diseño", "Desarrollo", "SEO"],
     url: "#contacto",
-    gradient: "from-zinc-50 to-neutral-100",
+    accent: "#6e6e73",
+    initial: "?",
   },
 ];
 
@@ -32,7 +38,13 @@ export default function Portfolio() {
     <section id="trabajos" className="py-28 lg:py-36 bg-[#f5f5f7]">
       <div className="max-w-6xl mx-auto px-5 sm:px-8">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-14">
+        <motion.div
+          className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-14"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.6 }}
+        >
           <div className="max-w-xl">
             <p className="text-xs font-semibold uppercase tracking-widest text-[#6e6e73] mb-4">
               Trabajos
@@ -45,32 +57,44 @@ export default function Portfolio() {
           </div>
           <a
             href="#contacto"
-            className="shrink-0 inline-flex items-center gap-2 border border-black/15 text-[#1d1d1f] text-sm font-semibold px-5 py-3 rounded-full hover:bg-white transition-colors"
+            className="shrink-0 inline-flex items-center gap-2 bg-[#1d1d1f] text-white text-sm font-semibold px-5 py-3 rounded-full hover:bg-black transition-colors shadow-[0_2px_16px_rgba(0,0,0,0.12)]"
           >
             Sumar mi negocio
             <ArrowUpRight className="w-4 h-4" />
           </a>
-        </div>
+        </motion.div>
 
         {/* Cards */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {works.map((w, i) => (
-            <a
+            <motion.a
               key={i}
               href={w.url}
               target={w.url.startsWith("http") ? "_blank" : undefined}
               rel={w.url.startsWith("http") ? "noopener noreferrer" : undefined}
-              className="group bg-white rounded-3xl border border-black/[0.06] shadow-[0_2px_40px_rgba(0,0,0,0.04)] overflow-hidden hover:shadow-[0_8px_60px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 transition-all duration-300"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ duration: 0.5, delay: i * 0.1, ease: [0.25, 0.1, 0.25, 1] }}
+              className="group bg-white rounded-3xl border border-black/[0.06] shadow-[0_2px_40px_rgba(0,0,0,0.04)] overflow-hidden hover:shadow-[0_12px_60px_rgba(0,0,0,0.1)] hover:-translate-y-1 transition-all duration-300"
             >
               {/* Preview area */}
-              <div className={`h-44 bg-gradient-to-br ${w.gradient} relative flex items-center justify-center`}>
-                <div className="w-16 h-16 rounded-2xl bg-white/70 border border-black/[0.08] flex items-center justify-center shadow-[0_2px_20px_rgba(0,0,0,0.06)]">
-                  <span className="text-2xl font-bold text-[#1d1d1f] tracking-tight">
-                    {w.name[0]}
+              <div className="h-48 bg-[#1d1d1f] relative flex items-center justify-center overflow-hidden">
+                {/* Grid pattern */}
+                <div
+                  className="absolute inset-0 opacity-[0.07]"
+                  style={{
+                    backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)',
+                    backgroundSize: '32px 32px',
+                  }}
+                />
+                <div className="w-16 h-16 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center backdrop-blur-sm shadow-[0_0_40px_rgba(255,255,255,0.1)]">
+                  <span className="text-2xl font-bold text-white tracking-tight">
+                    {w.initial}
                   </span>
                 </div>
-                <div className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/60 border border-black/[0.08] flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                  <ArrowUpRight className="w-3.5 h-3.5 text-[#1d1d1f]" />
+                <div className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 border border-white/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                  <ExternalLink className="w-3.5 h-3.5 text-white" />
                 </div>
               </div>
 
@@ -96,7 +120,7 @@ export default function Portfolio() {
                   ))}
                 </div>
               </div>
-            </a>
+            </motion.a>
           ))}
         </div>
       </div>

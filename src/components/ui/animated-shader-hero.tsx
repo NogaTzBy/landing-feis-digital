@@ -48,6 +48,9 @@ void main(void) {
     col+=.002*b/length(max(p,vec2(b*p.x*.02,p.y)));
     col=mix(col,vec3(bg*.25,bg*.137,bg*.05),d);
   }
+  // Convert to near-monochrome: dark smoke wisps on near-black
+  float lum = dot(col, vec3(0.2126, 0.7152, 0.0722));
+  col = vec3(lum * 1.2 + bg * 0.12);
   O=vec4(col,1);
 }`;
 
