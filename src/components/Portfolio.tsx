@@ -30,6 +30,14 @@ const works: PortfolioItem[] = [
     image: "https://landing-pink-pepper.vercel.app/landing-ppepper-bcn.png",
   },
   {
+    name: "M. Donzelli y Cía",
+    category: "Construcción · Landing Page",
+    description: "Rebranding y landing page para empresa de materiales de construcción con 45 años de trayectoria en Río Cuarto. Proveedores de Acindar, Ternium y Saint-Gobain.",
+    tags: ["Next.js", "Tailwind", "Framer Motion"],
+    url: "https://github.com/NogaTzBy/landing-mdonzelli",
+    image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=600&h=400&q=80",
+  },
+  {
     name: "Próximamente",
     category: "Tu negocio acá",
     description: "Espacios disponibles para nuevos clientes. Trabajamos con negocios locales, profesionales y PyMEs.",
