@@ -21,9 +21,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="es" className="scroll-smooth" suppressHydrationWarning>
-      <body className={`${geist.variable} font-[family-name:var(--font-geist)] antialiased bg-white text-[#1d1d1f] overflow-x-hidden`} suppressHydrationWarning>
-        {children}
+    <html lang="es" className="scroll-smooth overflow-x-hidden" suppressHydrationWarning>
+      <body className={`${geist.variable} font-[family-name:var(--font-geist)] antialiased bg-white text-[#1d1d1f] overflow-x-hidden max-w-full`} suppressHydrationWarning>
+        <div className="w-full overflow-x-hidden">{children}</div>
       </body>
     </html>
   );
