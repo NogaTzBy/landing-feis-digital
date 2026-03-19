@@ -11,7 +11,7 @@ const works: PortfolioItem[] = [
     description: "Landing page completa para tienda de ropa sin límite de talles en Villa Carlos Paz. Catálogo, lookbook, WhatsApp CTA y mapa de la tienda.",
     tags: ["Next.js", "Tailwind", "shadcn/ui"],
     url: "https://landing-nacar.vercel.app/",
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop&crop=center",
+    image: "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?w=600&h=400&fit=crop&crop=center",
   },
   {
     name: "WoolXL",
@@ -36,14 +36,6 @@ const works: PortfolioItem[] = [
     tags: ["Next.js", "Tailwind", "Framer Motion"],
     url: "https://landing-mdonzelli.vercel.app/",
     image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=600&h=400&q=80",
-  },
-  {
-    name: "Próximamente",
-    category: "Tu negocio acá",
-    description: "Espacios disponibles para nuevos clientes. Trabajamos con negocios locales, profesionales y PyMEs.",
-    tags: ["Diseño", "Desarrollo", "SEO"],
-    url: "#contacto",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=400&fit=crop&crop=center",
   },
 ];
 
