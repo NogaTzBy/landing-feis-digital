@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
+import Image from "next/image";
 
 const links = [
   { href: "#servicios", label: "Servicios" },
@@ -30,13 +31,15 @@ export default function Navbar() {
     >
       <div className="max-w-6xl mx-auto px-5 sm:px-8 flex items-center justify-between h-16">
         {/* Logo */}
-        <a href="/" className="flex items-center gap-2.5 group">
-          <div className="w-7 h-7 bg-black rounded-lg flex items-center justify-center">
-            <span className="text-white text-xs font-bold tracking-tight">F</span>
-          </div>
-          <span className="font-semibold text-[15px] tracking-tight text-[#1d1d1f]">
-            Feis Digital
-          </span>
+        <a href="/" className="flex items-center group">
+          <Image
+            src="/logo.jpg"
+            alt="Feis Digital"
+            width={100}
+            height={40}
+            className="h-10 w-auto object-contain"
+            priority
+          />
         </a>
 
         {/* Desktop links */}

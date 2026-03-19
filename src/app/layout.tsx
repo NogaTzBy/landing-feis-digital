@@ -13,6 +13,10 @@ export const metadata: Metadata = {
   description:
     "Agencia de diseño web con 3 años de trayectoria. Creamos landing pages profesionales que escalan la facturación de tu negocio.",
   keywords: ["agencia web", "landing pages", "diseño web profesional", "argentina", "feis digital"],
+  icons: {
+    icon: "/favicon.png",
+    apple: "/apple-touch-icon.png",
+  },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
