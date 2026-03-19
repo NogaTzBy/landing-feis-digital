@@ -32,14 +32,16 @@ export default function Navbar() {
       <div className="max-w-6xl mx-auto px-5 sm:px-8 flex items-center justify-between h-16">
         {/* Logo */}
         <a href="/" className="flex items-center group">
-          <Image
-            src="/logo.jpg"
-            alt="Feis Digital"
-            width={100}
-            height={40}
-            className="h-10 w-auto object-contain"
-            priority
-          />
+          <div className="bg-black rounded-xl px-3 py-1.5">
+            <Image
+              src="/logo.png"
+              alt="Feis Digital"
+              width={120}
+              height={40}
+              className="h-8 w-auto object-contain"
+              priority
+            />
+          </div>
         </a>
 
         {/* Desktop links */}
