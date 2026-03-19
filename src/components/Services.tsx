@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Globe, Zap, RefreshCw, BarChart3, Check } from 'lucide-react';
+import { Globe, RefreshCw, Check } from 'lucide-react';
 
 const services = [
   {
@@ -22,24 +22,6 @@ const services = [
       '¿Tenés una web que no convierte? La transformamos. Analizamos qué falla y la rediseñamos desde cero con foco en resultados.',
     points: ['Auditoría completa incluida', 'Rediseño desde cero', 'Migración sin downtime', 'Mejora de conversión'],
     visual: 'redesign',
-  },
-  {
-    icon: Zap,
-    title: 'Web Rápida & SEO',
-    tag: null,
-    description:
-      'Optimizamos velocidad y posicionamiento en Google. Una web lenta pierde clientes. Una web invisible, también.',
-    points: ['Performance 95+', 'SEO técnico completo', 'Core Web Vitals', 'Posicionamiento local'],
-    visual: 'seo',
-  },
-  {
-    icon: BarChart3,
-    title: 'Mantenimiento',
-    tag: null,
-    description:
-      'Nos ocupamos de que tu web siempre esté al día. Actualizaciones, cambios de contenido y soporte técnico incluidos.',
-    points: ['Actualizaciones mensuales', 'Soporte técnico incluido', 'Backups automáticos', 'Monitoreo 24/7'],
-    visual: 'maintenance',
   },
 ];
 
@@ -153,112 +135,10 @@ function RedesignVisual() {
   );
 }
 
-function SeoVisual() {
-  return (
-    <div className="w-full h-full flex flex-col items-center justify-center gap-6 p-4">
-      {/* score ring */}
-      <div className="relative w-40 h-40">
-        <svg className="w-full h-full -rotate-90" viewBox="0 0 100 100">
-          <circle cx="50" cy="50" r="42" fill="none" stroke="#e5e5e7" strokeWidth="8" />
-          <motion.circle
-            cx="50" cy="50" r="42" fill="none" stroke="#1d1d1f" strokeWidth="8"
-            strokeLinecap="round"
-            strokeDasharray="264"
-            initial={{ strokeDashoffset: 264 }}
-            animate={{ strokeDashoffset: 264 * 0.05 }}
-            transition={{ delay: 0.3, duration: 1.2, ease: 'easeOut' }}
-          />
-        </svg>
-        <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <motion.span
-            className="text-4xl font-bold text-[#1d1d1f] tracking-tight"
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}
-          >
-            97
-          </motion.span>
-          <span className="text-[10px] font-semibold uppercase tracking-widest text-[#6e6e73]">Performance</span>
-        </div>
-      </div>
-      {/* metrics */}
-      <div className="w-full grid grid-cols-3 gap-2">
-        {[
-          { label: 'FCP', value: '0.8s', color: '#28c840' },
-          { label: 'LCP', value: '1.2s', color: '#28c840' },
-          { label: 'CLS', value: '0.01', color: '#28c840' },
-        ].map((m, i) => (
-          <motion.div
-            key={m.label}
-            className="rounded-xl bg-[#f5f5f7] border border-black/[0.06] p-3 text-center"
-            initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8 + i * 0.1 }}
-          >
-            <div className="text-[10px] font-semibold uppercase tracking-widest text-[#6e6e73]">{m.label}</div>
-            <div className="text-sm font-bold text-[#1d1d1f] mt-0.5">{m.value}</div>
-          </motion.div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function MaintenanceVisual() {
-  const days = ['L', 'M', 'X', 'J', 'V', 'S', 'D'];
-  const uptime = [1,1,1,1,0.9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
-  return (
-    <div className="w-full h-full flex flex-col gap-4 p-4">
-      {/* uptime bar */}
-      <motion.div
-        className="rounded-2xl bg-[#f5f5f7] border border-black/[0.06] p-4"
-        initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}
-      >
-        <div className="flex justify-between items-center mb-3">
-          <span className="text-[11px] font-bold uppercase tracking-widest text-[#6e6e73]">Uptime</span>
-          <span className="text-[11px] font-bold text-[#28c840]">99.9%</span>
-        </div>
-        <div className="flex gap-1">
-          {uptime.map((u, i) => (
-            <motion.div
-              key={i}
-              className="flex-1 rounded-sm"
-              style={{ height: 20, background: u === 1 ? '#1d1d1f' : '#febc2e', opacity: u }}
-              initial={{ scaleY: 0 }} animate={{ scaleY: 1 }}
-              transition={{ delay: 0.1 + i * 0.03, duration: 0.3, ease: 'easeOut' }}
-            />
-          ))}
-        </div>
-      </motion.div>
-      {/* mini calendar */}
-      <motion.div
-        className="rounded-2xl bg-[#f5f5f7] border border-black/[0.06] p-4 flex-1"
-        initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
-      >
-        <div className="text-[11px] font-bold uppercase tracking-widest text-[#6e6e73] mb-3">Próximas tareas</div>
-        <div className="flex gap-1 mb-3">
-          {days.map(d => (
-            <div key={d} className="flex-1 text-center text-[9px] font-semibold text-[#999]">{d}</div>
-          ))}
-        </div>
-        <div className="grid grid-cols-7 gap-1">
-          {Array.from({ length: 14 }).map((_, i) => (
-            <motion.div
-              key={i}
-              className={`aspect-square rounded-md flex items-center justify-center text-[9px] font-medium
-                ${i === 3 ? 'bg-black text-white' : i === 8 ? 'bg-black/10 text-[#1d1d1f]' : 'text-[#6e6e73]'}`}
-              initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 + i * 0.03 }}
-            >
-              {i + 1}
-            </motion.div>
-          ))}
-        </div>
-      </motion.div>
-    </div>
-  );
-}
 
 const visuals: Record<string, React.FC> = {
   landing: LandingVisual,
   redesign: RedesignVisual,
-  seo: SeoVisual,
-  maintenance: MaintenanceVisual,
 };
 
 export default function Services() {
